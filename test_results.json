@@ -1,0 +1,107 @@
+{
+  "time": "2026-07-15T19:00:53.505342",
+  "summary": {
+    "total": 12,
+    "passed": 11,
+    "failed": 0,
+    "errors": 0
+  },
+  "results": [
+    {
+      "case_id": "AUTH-001",
+      "name": "正常登录",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2396.7
+    },
+    {
+      "case_id": "RES-001",
+      "name": "获取简历列表",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2052.5
+    },
+    {
+      "case_id": "RES-002",
+      "name": "获取单个简历",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2033.1
+    },
+    {
+      "case_id": "RES-003",
+      "name": "获取不存在简历",
+      "status": "PASS",
+      "expected": 400,
+      "actual": 400,
+      "response_time": 2029.4
+    },
+    {
+      "case_id": "RES-004",
+      "name": "未认证获取简历列表",
+      "status": "PASS",
+      "expected": 401,
+      "actual": 401,
+      "response_time": 2030.9
+    },
+    {
+      "case_id": "JOB-001",
+      "name": "获取岗位列表",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2056.0
+    },
+    {
+      "case_id": "JOB-002",
+      "name": "获取单个岗位",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2034.2
+    },
+    {
+      "case_id": "JOB-003",
+      "name": "创建岗位",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2093.4
+    },
+    {
+      "case_id": "INT-001",
+      "name": "获取面试列表",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2041.4
+    },
+    {
+      "case_id": "APP-001",
+      "name": "获取投递列表",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2021.5
+    },
+    {
+      "case_id": "APP-002",
+      "name": "创建投递",
+      "status": "PASS",
+      "expected": 200,
+      "actual": 200,
+      "response_time": 2107.0
+    },
+    {
+      "case_id": "PERF-001",
+      "name": "响应时间测试",
+      "status": "WARN",
+      "expected": "< 1000ms",
+      "actual": "2044.5ms",
+      "response_time": 2044.4614887237549
+    }
+  ]
+}

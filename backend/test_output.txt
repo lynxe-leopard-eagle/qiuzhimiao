@@ -1,0 +1,106 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.1.1, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: D:\resume\backend
+plugins: anyio-4.14.1, langsmith-0.10.1, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 15 items
+
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_pdf FAILED [  6%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_docx FAILED [ 13%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_txt PASSED [ 20%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_invalid_extension FAILED [ 26%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_mime_mismatch FAILED [ 33%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_file_too_large PASSED [ 40%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_valid_upload PASSED [ 46%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_extension_upload FAILED [ 53%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_mime_upload FAILED [ 60%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_oversized_upload FAILED [ 66%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_path_traversal_filename FAILED [ 73%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_empty_filename FAILED [ 80%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_null_bytes_in_filename FAILED [ 86%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_double_extension_attack PASSED [ 93%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_unicode_filename PASSED [100%]
+
+================================== FAILURES ===================================
+____________________ TestFileValidatorBasic.test_valid_pdf ____________________
+tests\test_unit_file_validator.py:28: in test_valid_pdf
+    assert result.error is None
+E   AssertionError: assert '' is None
+E    +  where '' = ValidationResult(is_valid=True, detected_mime='application/pdf', error='').error
+___________________ TestFileValidatorBasic.test_valid_docx ____________________
+tests\test_unit_file_validator.py:36: in test_valid_docx
+    assert result.is_valid is True
+E   AssertionError: assert False is True
+E    +  where False = ValidationResult(is_valid=False, detected_mime='', error='不支持的文件类型: application/zip').is_valid
+________________ TestFileValidatorBasic.test_invalid_extension ________________
+tests\test_unit_file_validator.py:51: in test_invalid_extension
+    assert "扩展名" in result.error
+E   AssertionError: assert '扩展名' in '无法识别文件类型'
+E    +  where '无法识别文件类型' = ValidationResult(is_valid=False, detected_mime='', error='无法识别文件类型').error
+__________________ TestFileValidatorBasic.test_mime_mismatch __________________
+tests\test_unit_file_validator.py:59: in test_mime_mismatch
+    assert "不匹配" in result.error
+E   AssertionError: assert '不匹配' in '无法识别文件类型'
+E    +  where '无法识别文件类型' = ValidationResult(is_valid=False, detected_mime='', error='无法识别文件类型').error
+___________ TestUploadFileValidation.test_invalid_extension_upload ____________
+tests\test_unit_file_validator.py:81: in test_invalid_extension_upload
+    assert "400" in str(exc_info.value)
+E   AssertionError: assert '400' in '不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt'
+E    +  where '不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt' = str(ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt'))
+E    +    where ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt') = <ExceptionInfo ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt') tblen=2>.value
+______________ TestUploadFileValidation.test_invalid_mime_upload ______________
+tests\test_unit_file_validator.py:87: in test_invalid_mime_upload
+    assert "400" in str(exc_info.value)
+E   AssertionError: assert '400' in '不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain'
+E    +  where '不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain' = str(ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain'))
+E    +    where ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain') = <ExceptionInfo ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain') tblen=2>.value
+_______________ TestUploadFileValidation.test_oversized_upload ________________
+tests\test_unit_file_validator.py:93: in test_oversized_upload
+    assert "400" in str(exc_info.value)
+E   AssertionError: assert '400' in '文件大小超过限制（最大 10MB）'
+E    +  where '文件大小超过限制（最大 10MB）' = str(ValueError('文件大小超过限制（最大 10MB）'))
+E    +    where ValueError('文件大小超过限制（最大 10MB）') = <ExceptionInfo ValueError('文件大小超过限制（最大 10MB）') tblen=2>.value
+____________ TestUploadFileValidation.test_path_traversal_filename ____________
+tests\test_unit_file_validator.py:99: in test_path_traversal_filename
+    assert "400" in str(exc_info.value)
+E   AssertionError: assert '400' in '不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt'
+E    +  where '不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt' = str(ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt'))
+E    +    where ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt') = <ExceptionInfo ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt') tblen=2>.value
+________________ TestUploadFileValidation.test_empty_filename _________________
+tests\test_unit_file_validator.py:105: in test_empty_filename
+    assert "400" in str(exc_info.value)
+E   AssertionError: assert '400' in '文件名缺少扩展名'
+E    +  where '文件名缺少扩展名' = str(ValueError('文件名缺少扩展名'))
+E    +    where ValueError('文件名缺少扩展名') = <ExceptionInfo ValueError('文件名缺少扩展名') tblen=2>.value
+______________ TestSecurityEdgeCases.test_null_bytes_in_filename ______________
+tests\test_unit_file_validator.py:113: in test_null_bytes_in_filename
+    with pytest.raises(Exception):
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE Exception
+=========================== short test summary info ===========================
+FAILED tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_pdf - AssertionError: assert '' is None
+ +  where '' = ValidationResult(is_valid=True, detected_mime='application/pdf', error='').error
+FAILED tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_docx - AssertionError: assert False is True
+ +  where False = ValidationResult(is_valid=False, detected_mime='', error='不支持的文件类型: application/zip').is_valid
+FAILED tests/test_unit_file_validator.py::TestFileValidatorBasic::test_invalid_extension - AssertionError: assert '扩展名' in '无法识别文件类型'
+ +  where '无法识别文件类型' = ValidationResult(is_valid=False, detected_mime='', error='无法识别文件类型').error
+FAILED tests/test_unit_file_validator.py::TestFileValidatorBasic::test_mime_mismatch - AssertionError: assert '不匹配' in '无法识别文件类型'
+ +  where '无法识别文件类型' = ValidationResult(is_valid=False, detected_mime='', error='无法识别文件类型').error
+FAILED tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_extension_upload - AssertionError: assert '400' in '不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt'
+ +  where '不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt' = str(ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt'))
+ +    where ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt') = <ExceptionInfo ValueError('不支持的文件扩展名: .exe，允许: .doc, .docx, .pdf, .txt') tblen=2>.value
+FAILED tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_mime_upload - AssertionError: assert '400' in '不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain'
+ +  where '不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain' = str(ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain'))
+ +    where ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain') = <ExceptionInfo ValueError('不支持的 MIME 类型: image/png，允许: application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain') tblen=2>.value
+FAILED tests/test_unit_file_validator.py::TestUploadFileValidation::test_oversized_upload - AssertionError: assert '400' in '文件大小超过限制（最大 10MB）'
+ +  where '文件大小超过限制（最大 10MB）' = str(ValueError('文件大小超过限制（最大 10MB）'))
+ +    where ValueError('文件大小超过限制（最大 10MB）') = <ExceptionInfo ValueError('文件大小超过限制（最大 10MB）') tblen=2>.value
+FAILED tests/test_unit_file_validator.py::TestUploadFileValidation::test_path_traversal_filename - AssertionError: assert '400' in '不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt'
+ +  where '不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt' = str(ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt'))
+ +    where ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt') = <ExceptionInfo ValueError('不支持的文件扩展名: ./etc/passwd，允许: .doc, .docx, .pdf, .txt') tblen=2>.value
+FAILED tests/test_unit_file_validator.py::TestUploadFileValidation::test_empty_filename - AssertionError: assert '400' in '文件名缺少扩展名'
+ +  where '文件名缺少扩展名' = str(ValueError('文件名缺少扩展名'))
+ +    where ValueError('文件名缺少扩展名') = <ExceptionInfo ValueError('文件名缺少扩展名') tblen=2>.value
+FAILED tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_null_bytes_in_filename - Failed: DID NOT RAISE Exception
+======================== 10 failed, 5 passed in 0.53s =========================

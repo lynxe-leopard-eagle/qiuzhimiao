@@ -1,0 +1,80 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.14.5, pytest-9.1.1, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: D:\resume\backend
+plugins: anyio-4.14.1, langsmith-0.10.1, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 31 items
+
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_pdf PASSED [  3%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_txt PASSED [  6%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_valid_png PASSED [  9%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_invalid_content_type_detection PASSED [ 12%]
+tests/test_unit_file_validator.py::TestFileValidatorBasic::test_file_too_large PASSED [ 16%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_valid_upload PASSED [ 19%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_extension_upload PASSED [ 22%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_invalid_mime_upload PASSED [ 25%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_oversized_upload PASSED [ 29%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_path_traversal_filename PASSED [ 32%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_empty_filename PASSED [ 35%]
+tests/test_unit_file_validator.py::TestUploadFileValidation::test_filename_too_long PASSED [ 38%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_null_bytes_in_filename PASSED [ 41%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_double_extension_attack PASSED [ 45%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_unicode_filename PASSED [ 48%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_case_insensitive_extension PASSED [ 51%]
+tests/test_unit_file_validator.py::TestSecurityEdgeCases::test_validation_result_dataclass PASSED [ 54%]
+tests/test_unit_security.py::TestPasswordHash::test_password_hash_and_verify PASSED [ 58%]
+tests/test_unit_security.py::TestPasswordHash::test_verify_wrong_password PASSED [ 61%]
+tests/test_unit_security.py::TestPasswordHash::test_hash_consistency PASSED [ 64%]
+tests/test_unit_security.py::TestJWTToken::test_create_and_verify_access_token PASSED [ 67%]
+tests/test_unit_security.py::TestJWTToken::test_create_and_verify_refresh_token PASSED [ 70%]
+tests/test_unit_security.py::TestJWTToken::test_verify_invalid_token PASSED [ 74%]
+tests/test_unit_security.py::TestJWTToken::test_verify_expired_token PASSED [ 77%]
+tests/test_unit_security.py::TestJWTToken::test_token_expiration_time FAILED [ 80%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short PASSED [ 83%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_no_lowercase PASSED [ 87%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_no_uppercase PASSED [ 90%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_no_digit PASSED [ 93%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_valid PASSED [ 96%]
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_edge_cases PASSED [100%]
+
+================================== FAILURES ===================================
+___________________ TestJWTToken.test_token_expiration_time ___________________
+tests\test_unit_security.py:106: in test_token_expiration_time
+    assert exp_timestamp <= now + 3600 + 5  # 允许5秒误差
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   assert 1784106825 <= ((1784020425.156422 + 3600) + 5)
+============================== warnings summary ===============================
+tests/test_unit_security.py::TestJWTToken::test_create_and_verify_access_token
+tests/test_unit_security.py::TestJWTToken::test_token_expiration_time
+  D:\resume\backend\app\core\security.py:29: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=settings.JWT_EXPIRE_MINUTES))
+
+tests/test_unit_security.py::TestJWTToken::test_create_and_verify_refresh_token
+  D:\resume\backend\app\core\security.py:36: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + timedelta(days=7)
+
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+  D:\resume\backend\app\schemas\user.py:19: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class UserResponse(BaseModel):
+
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+  C:\Users\Shiharu\AppData\Roaming\Python\Python314\site-packages\fastapi\routing.py:233: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+tests/test_unit_security.py::TestPasswordValidation::test_validate_password_too_short
+  C:\Users\Shiharu\AppData\Roaming\Python\Python314\site-packages\starlette\_utils.py:39: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    return asyncio.iscoroutinefunction(obj) or (callable(obj) and asyncio.iscoroutinefunction(obj.__call__))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_unit_security.py::TestJWTToken::test_token_expiration_time - assert 1784106825 <= ((1784020425.156422 + 3600) + 5)
+================== 1 failed, 30 passed, 14 warnings in 5.10s ==================

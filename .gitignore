@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+*.egg-info/
+__pycache__/
+
+# Build outputs
+frontend/dist/
+backend/uploads/
+
+# Environment files
+.env
+.env.local
+.env.production.local
+
+# Database
+*.db
+
+# Logs
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml

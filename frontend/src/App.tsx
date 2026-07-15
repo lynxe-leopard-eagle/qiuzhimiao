@@ -34,7 +34,8 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useThemeStore((s) => s.theme)
-  const basename = import.meta.env.BASE_URL
+  const path = window.location.pathname
+  const basename = path.startsWith('/qiuzhimiao') ? '/qiuzhimiao' : '/'
 
   return (
     <BrowserRouter basename={basename}>

@@ -34,9 +34,10 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useThemeStore((s) => s.theme)
+  const basename = import.meta.env.BASE_URL
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Layout>
         <ErrorBoundary>
         <Routes>
